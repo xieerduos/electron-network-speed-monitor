@@ -11,6 +11,6 @@ window.electronAPI.onNetworkSpeed((event, data) => {
   document.getElementById("download").textContent = data.downloadSpeed;
   document.getElementById("error-message").textContent = "";
 });
-window.api.onNetworkError((error) => {
+window.electronAPI.onNetworkError((error) => {
   document.getElementById("error-message").textContent = `错误: ${error}`;
 });
