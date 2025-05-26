@@ -26,7 +26,7 @@ function createWindow() {
 // 存储上一次获取到的网络接口数据，用于计算速度的差值
 let lastNetworkStats = null;
 
-// 选择当前主用的网络接口（已启用、非虚拟接口且存在数据传输）
+// 选择当前主要的网络接口（已启用、非虚拟接口且存在数据传输）
 function selectPrimaryInterface(stats) {
   return (
     stats.find(
