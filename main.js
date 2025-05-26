@@ -3,6 +3,7 @@ const { app, BrowserWindow } = require("electron");
 const si = require("systeminformation");
 const path = require("node:path");
 const bytes = require("bytes");
+const { selectPrimaryInterface } = require("./networkUtils");
 
 let mainWindow;
 function createWindow() {
@@ -25,18 +26,6 @@ function createWindow() {
 }
 // 存储上一次获取到的网络接口数据，用于计算速度的差值
 let lastNetworkStats = null;
-
-// 选择当前主要的网络接口（已启用、非虚拟接口且存在数据传输）
-function selectPrimaryInterface(stats) {
-  return (
-    stats.find(
-      (iface) =>
-        iface.operstate === "up" && // 接口状态为启用（up）
-        !iface.virtual && // 非虚拟网络接口
-        (iface.rx_bytes > 0 || iface.tx_bytes > 0) // 存在数据传输
-    ) || stats[0] // 若未找到符合条件的接口，则默认使用第一个接口
-  );
-}
 
 // 周期性地获取网络接口数据并计算当前网速
 async function getNetworkSpeed() {
@@ -109,3 +98,4 @@ app.on("window-all-closed", function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
